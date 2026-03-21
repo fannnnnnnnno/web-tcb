@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id @default(cuid())
+  username    String   @unique
+  password    String
+  name        String
+  avatarId    String?
+  totalPoints Int      @default(0)
+  role        String   @default("MEMBER")
+  joinedAt    DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  badges    UserBadge[]
+  pointLogs PointLog[]
+
+  @@index([totalPoints])
+}
+
+model Avatar {
+  id        String   @id @default(cuid())
+  filename  String   @unique
+  url       String
+  createdAt DateTime @default(now())
+}
+
+model Badge {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+
+  awardedTo UserBadge[]
+}
+
+model UserBadge {
+  id        String   @id @default(cuid())
+  userId    String
+  badgeId   String
+  awardedAt DateTime @default(now())
+  note      String?
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badge Badge @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, badgeId])
+}
+
+model PointLog {
+  id        String   @id @default(cuid())
+  userId    String
+  amount    Int
+  reason    String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model Agenda {
+  id           String    @id @default(cuid())
+  title        String
+  description  String?
+  date         DateTime
+  endDate      DateTime?
+  location     String?
+  locationType String    @default("OFFLINE")
+  lat          Float?
+  lng          Float?
+  mapsUrl      String?
+  mapsEmbed    String?
+  isPublished  Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}

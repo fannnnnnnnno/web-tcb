@@ -1,0 +1,13 @@
+/node_modules
+/.next/
+/out/
+.env*.local
+.env
+prisma/*.db
+prisma/*.db-journal
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+/public/avatars/*.png
+/public/avatars/*.jpg
+/public/avatars/*.webp

@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { @apply bg-tcb-black text-tcb-white font-sans antialiased; }
+  ::selection { background: #E01E2B; color: white; }
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: #0A0A0A; }
+  ::-webkit-scrollbar-thumb { background: #E01E2B; border-radius: 3px; }
+}
+
+@layer components {
+  .card {
+    @apply bg-tcb-gray-800 border border-tcb-gray-700 rounded-xl p-4 sm:p-5;
+  }
+  .card-hover {
+    @apply card transition-all duration-200 hover:border-tcb-red/50 cursor-pointer;
+  }
+  .btn-red {
+    @apply bg-tcb-red hover:bg-tcb-red-dark active:scale-95 text-white font-semibold
+           px-4 py-2.5 rounded-lg transition-all duration-150
+           inline-flex items-center justify-center gap-2 whitespace-nowrap;
+  }
+  .btn-outline {
+    @apply border border-tcb-red text-tcb-red hover:bg-tcb-red hover:text-white
+           active:scale-95 font-semibold px-4 py-2.5 rounded-lg transition-all duration-150
+           inline-flex items-center justify-center gap-2 whitespace-nowrap;
+  }
+  .btn-ghost {
+    @apply text-tcb-gray-200 hover:text-white hover:bg-tcb-gray-700 font-medium
+           px-4 py-2 rounded-lg transition-all duration-150
+           inline-flex items-center justify-center gap-2 whitespace-nowrap;
+  }
+  .input {
+    @apply bg-tcb-gray-900 border border-tcb-gray-600 rounded-lg px-3 py-2.5
+           text-tcb-white text-sm placeholder-tcb-gray-400
+           focus:outline-none focus:border-tcb-red transition-colors w-full font-sans;
+  }
+  .section {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 lg:py-20;
+  }
+  .red-line { @apply w-10 h-1 bg-tcb-red rounded-full; }
+  .navbar-h { height: 60px; }
+}
