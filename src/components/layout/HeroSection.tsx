@@ -33,15 +33,12 @@ export function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto w-full">
-        <div className="inline-block px-3 py-1 border border-tcb-red/40 rounded-full text-tcb-red text-xs font-bold tracking-widest uppercase mb-5">
-          Komunitas Resmi
-        </div>
         <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-4 text-tcb-white">
           TCB
         </h1>
         <div className="w-12 h-1 bg-tcb-red mx-auto mb-5" />
         <p className="text-tcb-gray-200 text-base sm:text-lg md:text-xl max-w-xl mx-auto mb-8 leading-relaxed">
-          Bersatu · Berprestasi · Berkembang
+          Combo, Respect, Repeat.
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Link href="/peringkat" className="btn-red px-6 py-3 text-sm sm:text-base">
