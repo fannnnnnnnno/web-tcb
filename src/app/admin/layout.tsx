@@ -10,10 +10,15 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   }
 
   return (
-    <div className="flex min-h-screen bg-tcb-black">
-      <AdminSidebar role={session.user.role} name={session.user.name} />
-      {/* pt-14 on mobile to clear the fixed top bar */}
-      <main className="flex-1 min-w-0 p-4 sm:p-6 pt-16 md:pt-6 overflow-auto">{children}</main>
-    </div>
+    <>
+      {/* Hide the public navbar inside admin */}
+      <style>{`header.fixed { display: none !important; }`}</style>
+      <div className="flex min-h-screen bg-tcb-black">
+        <AdminSidebar role={session.user.role} name={session.user.name} />
+        <main className="flex-1 min-w-0 p-4 sm:p-6 pt-16 md:pt-6 overflow-auto">
+          {children}
+        </main>
+      </div>
+    </>
   );
 }
