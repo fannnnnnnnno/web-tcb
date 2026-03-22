@@ -3,14 +3,18 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
-function guard(session: any) {
-  return session && ["ADMIN", "SUPERADMIN"].includes(session.user.role);
+function guard(s: any) {
+  return s && ["ADMIN", "SUPERADMIN"].includes(s.user.role);
 }
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   const session = await getServerSession(authOptions);
   if (!guard(session)) return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
 
+  const { id } = await params;
   const body = await req.json();
   const data: any = {};
 
@@ -23,15 +27,21 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   if (body.mapsEmbed !== undefined)    data.mapsEmbed    = body.mapsEmbed || null;
   if (body.mapsUrl !== undefined)      data.mapsUrl      = body.mapsUrl || null;
   if (body.isPublished !== undefined)  data.isPublished  = body.isPublished;
+  if (body.lat !== undefined)          data.lat          = body.lat;
+  if (body.lng !== undefined)          data.lng          = body.lng;
 
-  const agenda = await prisma.agenda.update({ where: { id: params.id }, data });
+  const agenda = await prisma.agenda.update({ where: { id }, data });
   return NextResponse.json({ data: agenda });
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
   const session = await getServerSession(authOptions);
   if (!guard(session)) return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
 
-  await prisma.agenda.delete({ where: { id: params.id } });
+  const { id } = await params;
+  await prisma.agenda.delete({ where: { id } });
   return NextResponse.json({ message: "Agenda dihapus" });
 }
