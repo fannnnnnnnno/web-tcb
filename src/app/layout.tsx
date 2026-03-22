@@ -4,8 +4,8 @@ import { Providers } from "@/components/layout/Providers";
 import { Navbar } from "@/components/layout/Navbar";
 
 export const metadata: Metadata = {
-  title: { template: "%s | TCB", default: "TCB Community" },
-  description: "Komunitas TCB — bersatu, berprestasi, berkembang.",
+  title: { template: "%s | TCB", default: "Web TCB" },
+  description: "Combo, Respect, Repeat.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
