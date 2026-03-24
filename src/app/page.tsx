@@ -28,14 +28,12 @@ export default async function HomePage() {
             </h2>
             <p className="text-tcb-gray-200 text-base sm:text-lg leading-relaxed mb-4">
               {/* Ganti teks ini dengan deskripsi resmi komunitas TCB */}
-              Komunitas TCB adalah wadah bagi para anggota untuk bersatu, berkembang, dan berprestasi bersama.
-              Kami hadir sebagai komunitas yang solid, penuh semangat, dan berorientasi pada kemajuan setiap
-              individu maupun kelompok.
+              Fighting game community bojonegoro adalah komunitas game fighting/console yang berbasis dan berkembang di bojonegoro, Misi kami adalah membangun/mendukung ekosistem dan eksistensi game fighting di bojonegoro.
+              Kami juga berkomitmen untuk menciptakan lingkungan yang inklusif, ramah, dan mendukung bagi semua anggota komunitas kami, tanpa memandang latar belakang, jenis kelamin, atau tingkat keahlian.
             </p>
             <p className="text-tcb-gray-400 leading-relaxed text-sm sm:text-base">
               {/* Paragraf kedua */}
-              Bergabung bersama kami dan jadilah bagian dari keluarga besar TCB yang terus tumbuh dan memberikan
-              dampak positif bagi anggota dan lingkungan sekitarnya.
+              Based on Tekken 8, street fighter 6, naruto ultimate ninja storm 4, kimetsu no yaiba the hinokami chronicles, dan masih banyak lagi. rutinitas kami adalah mengadakan gathering mingguan, tournament, dan sparring antar komunitas game.
             </p>
           </div>
         </div>
