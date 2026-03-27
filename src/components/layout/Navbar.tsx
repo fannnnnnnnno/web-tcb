@@ -58,9 +58,9 @@ export function Navbar() {
         <nav className="max-w-6xl mx-auto px-4 sm:px-6 w-full flex items-center justify-between">
 
           {/* Logo */}
-          <Link href="/" className="text-tcb-red font-black text-2xl tracking-widest hover:text-white transition-colors">
-            TCB
-          </Link>
+        <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
+            <img src="/logo.png" alt="TCB Logo" className="h-20 w-auto" />
+        </Link>
 
           {/* Desktop nav links */}
           <div className="hidden md:flex items-center gap-1">

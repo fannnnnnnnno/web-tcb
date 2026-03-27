@@ -5,8 +5,12 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: { template: "%s | TCB", default: "TCB Community" },
-  description: "Komunitas TCB — bersatu, berprestasi, berkembang.",
+  title: { template: "%s | FGC BJN", default: "Fighting Game Community BJN" },
+  description: "Komunitas TCB – Combo, Respect, Repeat.",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
