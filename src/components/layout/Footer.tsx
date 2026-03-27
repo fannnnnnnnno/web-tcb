@@ -2,7 +2,7 @@ import Link from "next/link";
 
 // Ganti link di bawah dengan link resmi TCB
 const SOCIAL_LINKS = {
-  whatsapp: "https://wa.me/6281234567890", // ganti dengan nomor WA
+  whatsapp: "https://chat.whatsapp.com/KePZjaEsOcABz1zTt5BSn8?mode=gi_t", // ganti dengan nomor WA
   instagram: "https://www.instagram.com/tcbbojonegoro",   // ganti dengan username IG
   discord:   "https://discord.com/invite/AYaqgqCQ5A",      // ganti dengan invite Discord
 };
