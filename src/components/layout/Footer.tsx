@@ -37,13 +37,20 @@ export function Footer() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
 
-          {/* Logo + copyright */}
-          <div className="text-center sm:text-left">
-            <div className="text-tcb-red font-black text-xl tracking-widest mb-1">TCB</div>
-            <p className="text-tcb-gray-400 text-xs">
-              &copy; {new Date().getFullYear()} Alfyyn. All rights reserved.
-            </p>
-          </div>
+      {/* Logo + copyright */}
+      <div className="text-center sm:text-left">
+      <div className="font-black text-xl tracking-widest mb-1">
+      <span className="text-white">Fighting Game </span>
+      <span className="text-tcb-red">Community Bojonegoro</span>
+      </div>
+      <p className="text-tcb-gray-400 text-xs">
+      &copy; {new Date().getFullYear()}{" "}
+      <a href="https://www.instagram.com/alfreurre/" target="_blank" rel="noopener noreferrer" className="hover:text-tcb-red transition-colors">
+      Alfyyn
+      </a>
+      . All rights reserved.
+      </p>
+      </div>
 
           {/* Social links */}
           <div className="flex items-center gap-3">
