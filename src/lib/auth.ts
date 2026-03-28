@@ -15,15 +15,12 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.username || !credentials?.password) return null;
-
         const user = await prisma.user.findUnique({
           where: { username: credentials.username },
         });
         if (!user) return null;
-
         const valid = await bcrypt.compare(credentials.password, user.password);
         if (!valid) return null;
-
         return {
           id: user.id,
           name: user.name,
@@ -49,7 +46,14 @@ export const authOptions: NextAuthOptions = {
         (session.user as any).id       = token.id;
         (session.user as any).username = token.username;
         (session.user as any).role     = token.role;
-        (session.user as any).avatarId = token.avatarId;
+
+        // Selalu ambil avatarId terbaru dari DB agar avatar selalu sinkron
+        const fresh = await prisma.user.findUnique({
+          where: { id: token.id as string },
+          select: { avatarId: true, name: true },
+        });
+        (session.user as any).avatarId = fresh?.avatarId ?? token.avatarId;
+        session.user.name = fresh?.name ?? session.user.name;
       }
       return session;
     },

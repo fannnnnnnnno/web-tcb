@@ -2,9 +2,11 @@ import { prisma } from "@/lib/prisma";
 import { formatPoints, formatDate } from "@/lib/utils";
 import { AdminMemberActions } from "@/components/admin/AdminMemberActions";
 import { AddMemberForm } from "@/components/admin/AddMemberForm";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Admin — Member" };
+export const metadata: Metadata = { title: "Admin – Member" };
 
 export default async function AdminMembersPage({
   searchParams,
@@ -15,6 +17,9 @@ export default async function AdminMembersPage({
   const search = params.search ?? "";
   const page   = Math.max(1, parseInt(params.page ?? "1"));
   const limit  = 20;
+
+  const session = await getServerSession(authOptions);
+  const isSuperAdmin = (session?.user as any)?.role === "SUPERADMIN";
 
   const where = search
     ? { role: "MEMBER", OR: [{ name: { contains: search } }, { username: { contains: search } }] }
@@ -65,7 +70,9 @@ export default async function AdminMembersPage({
                   <td className="px-4 py-3 text-tcb-red font-black">{formatPoints(m.totalPoints)}</td>
                   <td className="px-4 py-3 text-tcb-gray-200">{m._count.badges}</td>
                   <td className="px-4 py-3 text-tcb-gray-400 text-xs whitespace-nowrap">{formatDate(m.joinedAt)}</td>
-                  <td className="px-4 py-3"><AdminMemberActions member={m} badges={badges} /></td>
+                  <td className="px-4 py-3">
+                    <AdminMemberActions member={m} badges={badges} isSuperAdmin={isSuperAdmin} />
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -89,7 +96,7 @@ export default async function AdminMembersPage({
                   <span className="text-xs text-tcb-gray-400">{m._count.badges} lencana</span>
                 </div>
               </div>
-              <AdminMemberActions member={m} badges={badges} />
+              <AdminMemberActions member={m} badges={badges} isSuperAdmin={isSuperAdmin} />
             </div>
           </div>
         ))}
