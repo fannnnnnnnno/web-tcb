@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-// Ganti link di bawah dengan link resmi TCB
 const SOCIAL_LINKS = {
-  whatsapp: "https://chat.whatsapp.com/KePZjaEsOcABz1zTt5BSn8?mode=gi_t", // ganti dengan nomor WA
-  instagram: "https://www.instagram.com/tcbbojonegoro",   // ganti dengan username IG
-  discord:   "https://discord.com/invite/AYaqgqCQ5A",      // ganti dengan invite Discord
+  whatsapp:  "https://chat.whatsapp.com/KePZjaEsOcABz1zTt5BSn8?mode=gi_t",
+  instagram: "https://www.instagram.com/tcbbojonegoro",
+  discord:   "https://discord.com/invite/AYaqgqCQ5A",
+  youtube:   "https://www.youtube.com/@TCBBojonegoro",
 };
 
 function WhatsAppIcon() {
@@ -31,13 +31,21 @@ function DiscordIcon() {
   );
 }
 
+function YoutubeIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+      <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+    </svg>
+  );
+}
+
 export function Footer() {
   return (
     <footer className="bg-tcb-gray-900 border-t border-tcb-gray-700">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
 
-      {/* Logo + copyright */}
+          {/* Logo + copyright */}
       <div className="text-center sm:text-left">
       <div className="font-black text-xl tracking-widest mb-1">
       <span className="text-white">Fighting Game </span>
@@ -81,7 +89,17 @@ export function Footer() {
             >
               <DiscordIcon />
             </a>
+            <a
+              href={SOCIAL_LINKS.youtube}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-full bg-tcb-gray-800 border border-tcb-gray-700 flex items-center justify-center text-tcb-gray-400 hover:text-red-500 hover:border-red-500/50 hover:bg-red-500/10 transition-all"
+              aria-label="YouTube"
+            >
+              <YoutubeIcon />
+            </a>
           </div>
+
         </div>
       </div>
     </footer>

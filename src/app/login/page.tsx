@@ -39,8 +39,7 @@ export default function LoginPage() {
       <div className="relative w-full max-w-sm">
         {/* Logo */}
 <div className="text-center mb-8">
-<img src="/logo.png" alt="TCB Logo" className="h-16 w-auto mx-auto mb-3" />
-<div className="w-10 h-0.5 bg-tcb-red mx-auto mt-2 mb-4" />
+<img src="/logo.png" alt="TCB Logo" className="h-36 md:h-48 w-auto mx-auto mt-2" />
 <p className="text-tcb-gray-400 text-sm">Masuk ke akun anggota</p>
 </div>
 
