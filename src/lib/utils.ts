@@ -32,7 +32,11 @@ export function isUpcoming(date: Date | string) {
   return new Date(date) > new Date();
 }
 
+// Handle both Cloudinary URLs (https://...) and local preset filenames
 export function getAvatarUrl(avatarId: string | null | undefined): string {
-  if (!avatarId) return "/avatars/default.png";
-  return `/avatars/${avatarId}`;
+  if (!avatarId) return "";
+  if (avatarId.startsWith("http://") || avatarId.startsWith("https://")) {
+    return avatarId; // Cloudinary URL langsung dipakai
+  }
+  return `/avatars/${avatarId}`; // Preset lokal
 }

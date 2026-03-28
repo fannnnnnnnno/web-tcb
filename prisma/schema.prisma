@@ -9,15 +9,16 @@ datasource db {
 }
 
 model User {
-  id          String   @id @default(cuid())
-  username    String   @unique
-  password    String
-  name        String
-  avatarId    String?
-  totalPoints Int      @default(0)
-  role        String   @default("MEMBER")
-  joinedAt    DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                  String    @id @default(cuid())
+  username            String    @unique
+  password            String
+  name                String
+  avatarId            String?
+  avatarLastUploadAt  DateTime?
+  totalPoints         Int       @default(0)
+  role                String    @default("MEMBER")
+  joinedAt            DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
 
   badges    UserBadge[]
   pointLogs PointLog[]
