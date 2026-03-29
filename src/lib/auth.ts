@@ -2,6 +2,7 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
+import { rateLimit } from "@/lib/rateLimit";
 
 export const authOptions: NextAuthOptions = {
   session: { strategy: "jwt" },
@@ -13,14 +14,23 @@ export const authOptions: NextAuthOptions = {
         username: { label: "Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials, req) {
         if (!credentials?.username || !credentials?.password) return null;
+
+        // Rate limit login: maks 10 percobaan per 15 menit per username
+        const key = `login:${credentials.username.toLowerCase()}`;
+        if (!rateLimit(key, 10, 15 * 60_000)) {
+          throw new Error("Terlalu banyak percobaan login. Coba lagi dalam 15 menit.");
+        }
+
         const user = await prisma.user.findUnique({
           where: { username: credentials.username },
         });
         if (!user) return null;
+
         const valid = await bcrypt.compare(credentials.password, user.password);
         if (!valid) return null;
+
         return {
           id: user.id,
           name: user.name,
@@ -47,7 +57,6 @@ export const authOptions: NextAuthOptions = {
         (session.user as any).username = token.username;
         (session.user as any).role     = token.role;
 
-        // Selalu ambil avatarId terbaru dari DB agar avatar selalu sinkron
         const fresh = await prisma.user.findUnique({
           where: { id: token.id as string },
           select: { avatarId: true, name: true },

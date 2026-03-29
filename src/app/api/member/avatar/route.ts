@@ -3,15 +3,20 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { cloudinary } from "@/lib/cloudinary";
+import { rateLimit } from "@/lib/rateLimit";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/jpg", "image/png"];
-const MAX_SIZE = 2 * 1024 * 1024; // 2MB
+const MAX_SIZE = 2 * 1024 * 1024;
 const COOLDOWN_DAYS = 30;
 
-// PATCH — pilih avatar preset
 export async function PATCH(req: NextRequest) {
   const session = await getServerSession(authOptions);
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+
+  // Rate limit: maks 10 request per menit per user
+  if (!rateLimit(`patch-avatar:${(session.user as any).id}`, 10, 60_000)) {
+    return NextResponse.json({ error: "Terlalu banyak request. Coba lagi nanti." }, { status: 429 });
+  }
 
   const { avatarId } = await req.json();
 
@@ -21,21 +26,24 @@ export async function PATCH(req: NextRequest) {
   }
 
   await prisma.user.update({
-    where: { id: session.user.id },
+    where: { id: (session.user as any).id },
     data: { avatarId },
   });
 
   return NextResponse.json({ message: "Avatar diperbarui" });
 }
 
-// POST — upload avatar custom ke Cloudinary
 export async function POST(req: NextRequest) {
   const session = await getServerSession(authOptions);
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  // Cek cooldown 30 hari
+  // Rate limit: maks 5 upload per jam per user
+  if (!rateLimit(`post-avatar:${(session.user as any).id}`, 5, 60 * 60_000)) {
+    return NextResponse.json({ error: "Terlalu banyak upload. Coba lagi nanti." }, { status: 429 });
+  }
+
   const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
+    where: { id: (session.user as any).id },
     select: { avatarLastUploadAt: true },
   });
 
@@ -48,7 +56,6 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  // Parse form data
   const formData = await req.formData();
   const file = formData.get("file") as File | null;
 
@@ -60,44 +67,37 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Ukuran file maksimal 2MB" }, { status: 400 });
   }
 
-  // Convert file ke buffer lalu upload ke Cloudinary
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
-
-  const publicId = `tcb-avatars/${session.user.id}_${Date.now()}`;
+  const publicId = `tcb-avatars/${(session.user as any).id}_${Date.now()}`;
 
   const uploadResult = await new Promise<{ secure_url: string; public_id: string }>(
     (resolve, reject) => {
-      cloudinary.uploader
-        .upload_stream(
-          {
-            public_id: publicId,
-            folder: "tcb-avatars",
-            overwrite: true,
-            transformation: [
-              { width: 300, height: 300, crop: "fill", gravity: "face" },
-              { quality: "auto", fetch_format: "auto" },
-            ],
-          },
-          (error, result) => {
-            if (error || !result) return reject(error);
-            resolve(result as { secure_url: string; public_id: string });
-          }
-        )
-        .end(buffer);
+      cloudinary.uploader.upload_stream(
+        {
+          public_id: publicId,
+          folder: "tcb-avatars",
+          overwrite: true,
+          transformation: [
+            { width: 300, height: 300, crop: "fill", gravity: "face" },
+            { quality: "auto", fetch_format: "auto" },
+          ],
+        },
+        (error, result) => {
+          if (error || !result) return reject(error);
+          resolve(result as { secure_url: string; public_id: string });
+        }
+      ).end(buffer);
     }
   );
 
-  // Simpan URL Cloudinary ke DB sebagai avatarId
-  const cloudinaryUrl = uploadResult.secure_url;
-
   await prisma.user.update({
-    where: { id: session.user.id },
+    where: { id: (session.user as any).id },
     data: {
-      avatarId: cloudinaryUrl,
+      avatarId: uploadResult.secure_url,
       avatarLastUploadAt: new Date(),
     },
   });
 
-  return NextResponse.json({ url: cloudinaryUrl, message: "Avatar berhasil diupload" });
+  return NextResponse.json({ url: uploadResult.secure_url, message: "Avatar berhasil diupload" });
 }
