@@ -21,7 +21,7 @@ function PlayerAvatar({ name, avatarId, size }: { name: string; avatarId: string
   }
   return (
     <div className={`${dim} rounded-full bg-tcb-gray-700 ${border} border-tcb-gray-600 flex items-center justify-center font-black text-tcb-white flex-shrink-0`}>
-      {name[0].toUpperCase()}
+      {name?.[0]?.toUpperCase() ?? "?"}
     </div>
   );
 }
