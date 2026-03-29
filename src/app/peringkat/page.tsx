@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { formatPoints } from "@/lib/utils";
+import { formatPoints, getAvatarUrl } from "@/lib/utils";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -8,10 +8,12 @@ export const metadata: Metadata = { title: "Peringkat" };
 function PlayerAvatar({ name, avatarId, size }: { name: string; avatarId: string | null; size: "sm" | "md" }) {
   const dim    = size === "md" ? "w-14 h-14 sm:w-20 sm:h-20 text-xl sm:text-2xl" : "w-10 h-10 text-sm";
   const border = "border-2";
-  if (avatarId) {
+  const url    = getAvatarUrl(avatarId);
+
+  if (url) {
     return (
       <img
-        src={`/avatars/${avatarId}`}
+        src={url}
         alt={name}
         className={`${dim} rounded-full object-cover ${border} border-tcb-gray-600 flex-shrink-0`}
       />
@@ -29,7 +31,6 @@ export default async function PeringkatPage({
 }: {
   searchParams: Promise<{ page?: string }>;
 }) {
-  // Next.js 15: searchParams must be awaited
   const params = await searchParams;
   const page   = Math.max(1, parseInt(params.page ?? "1"));
   const limit  = 10;
@@ -135,15 +136,11 @@ export default async function PeringkatPage({
         {totalPages > 1 && (
           <div className="flex justify-center items-center gap-3 mt-8 sm:mt-10 flex-wrap">
             {page > 1 && (
-              <Link href={`/peringkat?page=${page - 1}`} className="btn-outline text-sm px-4 py-2">
-                ← Prev
-              </Link>
+              <Link href={`/peringkat?page=${page - 1}`} className="btn-outline text-sm px-4 py-2">← Prev</Link>
             )}
             <span className="text-tcb-gray-400 text-sm">Hal {page} / {totalPages}</span>
             {page < totalPages && (
-              <Link href={`/peringkat?page=${page + 1}`} className="btn-red text-sm px-4 py-2">
-                Next →
-              </Link>
+              <Link href={`/peringkat?page=${page + 1}`} className="btn-red text-sm px-4 py-2">Next →</Link>
             )}
           </div>
         )}

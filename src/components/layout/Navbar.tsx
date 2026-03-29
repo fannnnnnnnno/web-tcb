@@ -4,12 +4,7 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { cn } from "@/lib/utils";
-
-function getAvatarUrl(avatarId: string | null | undefined): string {
-  if (!avatarId) return "";
-  return `/avatars/${avatarId}`;
-}
+import { cn, getAvatarUrl } from "@/lib/utils";
 
 const NAV_LINKS = [
   { href: "/",          label: "Beranda"   },
@@ -31,13 +26,11 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
-  // Close everything on route change
   useEffect(() => {
     setMenuOpen(false);
     setDropOpen(false);
@@ -58,9 +51,9 @@ export function Navbar() {
         <nav className="max-w-6xl mx-auto px-4 sm:px-6 w-full flex items-center justify-between">
 
           {/* Logo */}
-        <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
+          <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
             <img src="/logo.png" alt="TCB Logo" className="h-20 w-auto" />
-        </Link>
+          </Link>
 
           {/* Desktop nav links */}
           <div className="hidden md:flex items-center gap-1">
@@ -136,15 +129,10 @@ export function Navbar() {
         </nav>
       </header>
 
-      {/* Mobile full-screen menu — starts below navbar */}
+      {/* Mobile menu */}
       {menuOpen && (
-        <div
-          className="md:hidden fixed left-0 right-0 bottom-0 z-40 bg-tcb-black overflow-y-auto"
-          style={{ top: "60px" }}
-        >
+        <div className="md:hidden fixed left-0 right-0 bottom-0 z-40 bg-tcb-black overflow-y-auto" style={{ top: "60px" }}>
           <div className="px-4 pt-6 pb-10 flex flex-col">
-
-            {/* Nav links */}
             <nav className="space-y-1 mb-6">
               {NAV_LINKS.map((l) => (
                 <Link key={l.href} href={l.href}
@@ -167,14 +155,10 @@ export function Navbar() {
 
             <div className="h-px bg-tcb-gray-700 mb-6" />
 
-            {/* Auth section */}
             {!session ? (
-              <Link href="/login" className="btn-red w-full py-4 text-base">
-                Login Member
-              </Link>
+              <Link href="/login" className="btn-red w-full py-4 text-base">Login Member</Link>
             ) : (
               <div className="space-y-1.5">
-                {/* User card */}
                 <div className="flex items-center gap-3 px-4 py-3.5 bg-tcb-gray-800 border border-tcb-gray-700 rounded-xl mb-2">
                   {avatarUrl ? (
                     <img src={avatarUrl} alt={session.user.name} className="w-10 h-10 rounded-full object-cover border-2 border-tcb-red flex-shrink-0" />
@@ -188,7 +172,6 @@ export function Navbar() {
                     <div className="text-xs text-tcb-gray-400">@{session.user.username}</div>
                   </div>
                 </div>
-
                 <Link href="/akun" className="block px-4 py-3.5 rounded-xl text-sm font-semibold text-tcb-gray-200 hover:bg-tcb-gray-800 transition-all">
                   Akun Saya
                 </Link>
