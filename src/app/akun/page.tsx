@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
-import { formatDate, formatPoints } from "@/lib/utils";
+import { formatDate, formatPoints, getAvatarUrl } from "@/lib/utils";
 import { AvatarSection } from "@/components/akun/AvatarSection";
 import { ProfileEditForm } from "@/components/akun/ProfileEditForm";
 import { CollapsibleSection } from "@/components/akun/CollapsibleSection";
@@ -32,7 +32,7 @@ export default async function AkunPage() {
       where: { role: "MEMBER", totalPoints: { gt: user.totalPoints } },
     })) + 1;
 
-  const avatarUrl = user.avatarId ? `/avatars/${user.avatarId}` : null;
+  const avatarUrl = getAvatarUrl(user.avatarId);
 
   return (
     <div className="min-h-screen bg-tcb-black pt-20 pb-12">
