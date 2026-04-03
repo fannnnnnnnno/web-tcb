@@ -7,11 +7,12 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 
 const NAV = [
-  { href: "/admin",          label: "Dashboard", icon: "▦", super: false },
-  { href: "/admin/members",  label: "Member",    icon: "◉", super: false },
-  { href: "/admin/agendas",  label: "Agenda",    icon: "◈", super: false },
-  { href: "/admin/badges",   label: "Lencana",   icon: "◆", super: false },
-  { href: "/admin/avatars",  label: "Avatar",    icon: "◎", super: true  },
+  { href: "/admin",              label: "Dashboard",    icon: "▦", super: false },
+  { href: "/admin/members",      label: "Member",       icon: "◉", super: false },
+  { href: "/admin/bulk-points",  label: "Input Poin",   icon: "◈", super: false },
+  { href: "/admin/agendas",      label: "Agenda",       icon: "◈", super: false },
+  { href: "/admin/badges",       label: "Lencana",      icon: "◆", super: false },
+  { href: "/admin/avatars",      label: "Avatar",       icon: "◎", super: true  },
 ];
 
 export function AdminSidebar({ role, name }: { role: string; name: string }) {
@@ -48,7 +49,7 @@ export function AdminSidebar({ role, name }: { role: string; name: string }) {
 
   return (
     <>
-      {/* ── Desktop sidebar ── */}
+      {/* Desktop sidebar */}
       <aside className="hidden md:flex w-56 min-h-screen bg-tcb-gray-900 border-r border-tcb-gray-700 flex-col flex-shrink-0">
         <div className="px-5 py-5 border-b border-tcb-gray-700">
           <Link href="/" className="text-tcb-red font-black text-xl tracking-widest">TCB</Link>
@@ -69,7 +70,7 @@ export function AdminSidebar({ role, name }: { role: string; name: string }) {
         </div>
       </aside>
 
-      {/* ── Mobile top bar ── */}
+      {/* Mobile top bar */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-tcb-gray-900 border-b border-tcb-gray-700 flex items-center justify-between px-4 h-14">
         <Link href="/" className="text-tcb-red font-black text-lg tracking-widest">TCB</Link>
         <span className="text-xs text-tcb-gray-400 font-semibold">Admin</span>
@@ -83,7 +84,7 @@ export function AdminSidebar({ role, name }: { role: string; name: string }) {
         </button>
       </div>
 
-      {/* ── Mobile drawer ── */}
+      {/* Mobile drawer */}
       {open && (
         <>
           <div className="md:hidden fixed inset-0 z-40 bg-black/70" onClick={() => setOpen(false)} />
@@ -108,7 +109,7 @@ export function AdminSidebar({ role, name }: { role: string; name: string }) {
         </>
       )}
 
-      {/* ── Mobile top spacer ── */}
+      {/* Mobile spacer */}
       <div className="md:hidden h-14 flex-shrink-0 w-0" />
     </>
   );

@@ -20,9 +20,11 @@ model User {
   joinedAt           DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
 
-  badges    UserBadge[]
-  pointLogs PointLog[]
-  adminLogs AdminLog[]  @relation("AdminLogs")
+  badges        UserBadge[]
+  pointLogs     PointLog[]
+  adminLogs     AdminLog[]     @relation("AdminLogs")
+  gamePoints    GamePoint[]
+  rankSnapshots RankSnapshot[]
 
   @@index([totalPoints])
 }
@@ -62,11 +64,54 @@ model PointLog {
   userId    String
   amount    Int
   reason    String
+  gameId    String?
   createdAt DateTime @default(now())
+
+  user User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  game Game? @relation(fields: [gameId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+}
+
+model Game {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  slug      String   @unique
+  imageUrl  String?
+  isActive  Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+
+  gamePoints  GamePoint[]
+  pointLogs   PointLog[]
+}
+
+model GamePoint {
+  id          String   @id @default(cuid())
+  userId      String
+  gameId      String
+  points      Int      @default(0)
+  updatedAt   DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, gameId])
+  @@index([gameId, points])
+}
+
+model RankSnapshot {
+  id        String   @id @default(cuid())
+  userId    String
+  gameId    String?
+  rank      Int
+  points    Int
+  weekStart DateTime
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@index([userId])
+  @@unique([userId, gameId, weekStart])
+  @@index([weekStart])
 }
 
 model Agenda {
