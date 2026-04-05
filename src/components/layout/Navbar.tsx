@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useSession, signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
@@ -50,9 +51,16 @@ export function Navbar() {
       >
         <nav className="max-w-6xl mx-auto px-4 sm:px-6 w-full flex items-center justify-between">
 
-          {/* Logo */}
+          {/* Logo — pakai next/image untuk optimasi otomatis */}
           <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
-            <img src="/logo.png" alt="TCB Logo" className="h-20 w-auto" />
+            <Image
+              src="/logo.png"
+              alt="TCB Logo"
+              width={80}
+              height={80}
+              className="h-20 w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop nav links */}
@@ -82,10 +90,11 @@ export function Navbar() {
               <div className="relative">
                 <button onClick={() => setDropOpen(!dropOpen)} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
                   {avatarUrl ? (
-                    <img src={avatarUrl} alt={session.user.name} className="w-8 h-8 rounded-full object-cover border-2 border-tcb-red" />
+                    <img src={avatarUrl} alt={session.user.name ?? ""} loading="lazy"
+                      className="w-8 h-8 rounded-full object-cover border-2 border-tcb-red" />
                   ) : (
                     <div className="w-8 h-8 rounded-full bg-tcb-red/20 border-2 border-tcb-red flex items-center justify-center text-sm font-black text-tcb-red">
-                      {session.user.name[0].toUpperCase()}
+                      {session.user.name?.[0]?.toUpperCase() ?? "?"}
                     </div>
                   )}
                   <span className="text-sm font-semibold text-tcb-white max-w-[120px] truncate">{session.user.name}</span>
@@ -161,10 +170,11 @@ export function Navbar() {
               <div className="space-y-1.5">
                 <div className="flex items-center gap-3 px-4 py-3.5 bg-tcb-gray-800 border border-tcb-gray-700 rounded-xl mb-2">
                   {avatarUrl ? (
-                    <img src={avatarUrl} alt={session.user.name} className="w-10 h-10 rounded-full object-cover border-2 border-tcb-red flex-shrink-0" />
+                    <img src={avatarUrl} alt={session.user.name ?? ""} loading="lazy"
+                      className="w-10 h-10 rounded-full object-cover border-2 border-tcb-red flex-shrink-0" />
                   ) : (
                     <div className="w-10 h-10 rounded-full bg-tcb-red/20 border-2 border-tcb-red flex items-center justify-center font-black text-tcb-red text-sm flex-shrink-0">
-                      {session.user.name[0].toUpperCase()}
+                      {session.user.name?.[0]?.toUpperCase() ?? "?"}
                     </div>
                   )}
                   <div className="min-w-0">
@@ -180,10 +190,8 @@ export function Navbar() {
                     Dashboard Admin
                   </Link>
                 )}
-                <button
-                  onClick={() => signOut({ callbackUrl: "/" })}
-                  className="w-full text-left px-4 py-3.5 rounded-xl text-sm font-semibold text-red-400 hover:bg-tcb-gray-800 transition-all"
-                >
+                <button onClick={() => signOut({ callbackUrl: "/" })}
+                  className="w-full text-left px-4 py-3.5 rounded-xl text-sm font-semibold text-red-400 hover:bg-tcb-gray-800 transition-all">
                   Keluar
                 </button>
               </div>
