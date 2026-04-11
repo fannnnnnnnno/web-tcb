@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   const { error, session } = await requireAdmin(["SUPERADMIN"]);
   if (error) return error;
 
-  // Reset semua GamePoint ke 0
+  // Hapus semua riwayat poin`n  await prisma.pointLog.deleteMany({});`n`n  // Reset semua GamePoint ke 0
   await prisma.gamePoint.updateMany({
     data: { points: 0 },
   });
