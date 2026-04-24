@@ -1,9 +1,8 @@
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { formatPoints, formatDate } from "@/lib/utils";
 import { AdminMemberActions } from "@/components/admin/AdminMemberActions";
 import { AddMemberForm } from "@/components/admin/AddMemberForm";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Admin – Member" };
@@ -18,7 +17,7 @@ export default async function AdminMembersPage({
   const page   = Math.max(1, parseInt(params.page ?? "1"));
   const limit  = 20;
 
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   const isSuperAdmin = (session?.user as any)?.role === "SUPERADMIN";
 
   const where = search

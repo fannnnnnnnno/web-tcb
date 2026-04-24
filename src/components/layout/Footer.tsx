@@ -14,7 +14,6 @@ function WhatsAppIcon() {
     </svg>
   );
 }
-
 function InstagramIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -22,7 +21,6 @@ function InstagramIcon() {
     </svg>
   );
 }
-
 function DiscordIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -30,7 +28,6 @@ function DiscordIcon() {
     </svg>
   );
 }
-
 function YoutubeIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -41,63 +38,38 @@ function YoutubeIcon() {
 
 export function Footer() {
   return (
-    <footer className="bg-tcb-gray-900 border-t border-tcb-gray-700">
+    <footer style={{ backgroundColor: "var(--bg-secondary)", borderTop: "1px solid var(--border)" }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
 
-          {/* Logo + copyright */}
-      <div className="text-center sm:text-left">
-      <div className="font-black text-xl tracking-widest mb-1">
-      <span className="text-white">Fighting Game </span>
-      <span className="text-tcb-red">Community Bojonegoro</span>
-      </div>
-      <p className="text-tcb-gray-400 text-xs">
-      &copy; {new Date().getFullYear()}{" "}
-      <a href="https://www.instagram.com/alfreurre/" target="_blank" rel="noopener noreferrer" className="hover:text-tcb-red transition-colors">
-      Alfyyn
-      </a>
-      . All rights reserved.
-      </p>
-      </div>
+          <div className="text-center sm:text-left">
+            <div className="font-black text-xl tracking-widest mb-1">
+              <span style={{ color: "var(--text-primary)" }}>Fighting Game </span>
+              <span className="text-tcb-red">Community Bojonegoro</span>
+            </div>
+            <p className="text-xs" style={{ color: "var(--text-faint)" }}>
+              &copy; {new Date().getFullYear()}{" "}
+              <a href="https://www.instagram.com/alfreurre/" target="_blank" rel="noopener noreferrer"
+                className="hover:text-tcb-red transition-colors">
+                Alfyyn
+              </a>
+              . All rights reserved.
+            </p>
+          </div>
 
-          {/* Social links */}
           <div className="flex items-center gap-3">
-            <a
-              href={SOCIAL_LINKS.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full bg-tcb-gray-800 border border-tcb-gray-700 flex items-center justify-center text-tcb-gray-400 hover:text-green-400 hover:border-green-500/50 hover:bg-green-500/10 transition-all"
-              aria-label="WhatsApp"
-            >
-              <WhatsAppIcon />
-            </a>
-            <a
-              href={SOCIAL_LINKS.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full bg-tcb-gray-800 border border-tcb-gray-700 flex items-center justify-center text-tcb-gray-400 hover:text-pink-400 hover:border-pink-500/50 hover:bg-pink-500/10 transition-all"
-              aria-label="Instagram"
-            >
-              <InstagramIcon />
-            </a>
-            <a
-              href={SOCIAL_LINKS.discord}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full bg-tcb-gray-800 border border-tcb-gray-700 flex items-center justify-center text-tcb-gray-400 hover:text-indigo-400 hover:border-indigo-500/50 hover:bg-indigo-500/10 transition-all"
-              aria-label="Discord"
-            >
-              <DiscordIcon />
-            </a>
-            <a
-              href={SOCIAL_LINKS.youtube}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-10 h-10 rounded-full bg-tcb-gray-800 border border-tcb-gray-700 flex items-center justify-center text-tcb-gray-400 hover:text-red-500 hover:border-red-500/50 hover:bg-red-500/10 transition-all"
-              aria-label="YouTube"
-            >
-              <YoutubeIcon />
-            </a>
+            {[
+              { href: SOCIAL_LINKS.whatsapp, icon: <WhatsAppIcon />, label: "WhatsApp", hover: "hover:text-green-500 hover:border-green-500/50 hover:bg-green-500/10" },
+              { href: SOCIAL_LINKS.instagram, icon: <InstagramIcon />, label: "Instagram", hover: "hover:text-pink-500 hover:border-pink-500/50 hover:bg-pink-500/10" },
+              { href: SOCIAL_LINKS.discord, icon: <DiscordIcon />, label: "Discord", hover: "hover:text-indigo-500 hover:border-indigo-500/50 hover:bg-indigo-500/10" },
+              { href: SOCIAL_LINKS.youtube, icon: <YoutubeIcon />, label: "YouTube", hover: "hover:text-red-500 hover:border-red-500/50 hover:bg-red-500/10" },
+            ].map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}
+                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all border ${s.hover}`}
+                style={{ backgroundColor: "var(--bg-card)", borderColor: "var(--border)", color: "var(--text-faint)" }}>
+                {s.icon}
+              </a>
+            ))}
           </div>
 
         </div>

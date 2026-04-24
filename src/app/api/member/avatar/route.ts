@@ -1,6 +1,5 @@
+import { auth } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { cloudinary } from "@/lib/cloudinary";
 import { rateLimit } from "@/lib/rateLimit";
@@ -10,7 +9,7 @@ const MAX_SIZE = 2 * 1024 * 1024;
 const COOLDOWN_DAYS = 30;
 
 export async function PATCH(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   // Rate limit: maks 10 request per menit per user
@@ -34,7 +33,7 @@ export async function PATCH(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   // Rate limit: maks 5 upload per jam per user

@@ -1,6 +1,5 @@
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { AvatarUploader, AvatarDeleteButton } from "@/components/admin/AvatarUploader";
 import type { Metadata } from "next";
@@ -8,7 +7,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = { title: "Admin — Avatar" };
 
 export default async function AdminAvatarsPage() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (session?.user.role !== "SUPERADMIN") redirect("/admin");
 
   const avatars = await prisma.avatar.findMany({ orderBy: { createdAt: "desc" } });

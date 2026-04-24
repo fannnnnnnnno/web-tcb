@@ -1,13 +1,12 @@
+import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import { BulkPointsForm } from "@/components/admin/BulkPointsForm";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Input Poin Massal" };
 
 export default async function BulkPointsPage() {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   const isSuperAdmin = (session?.user as any)?.role === "SUPERADMIN";
 
   const [members, games] = await Promise.all([

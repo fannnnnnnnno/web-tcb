@@ -1,12 +1,11 @@
+import { auth } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
 function guard(s: any) { return s && ["ADMIN","SUPERADMIN"].includes(s.user.role); }
 
 export async function POST(req: NextRequest) {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   if (!guard(session)) return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   const { name, description, imageUrl } = await req.json();
   if (!name) return NextResponse.json({ error: "Nama wajib diisi" }, { status: 400 });

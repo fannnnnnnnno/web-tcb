@@ -1,6 +1,5 @@
 import { prisma } from "@/lib/prisma";
 
-// Ambil tanggal awal minggu (Senin)
 export function getWeekStart(date = new Date()): Date {
   const d = new Date(date);
   const day = d.getDay();
@@ -10,14 +9,15 @@ export function getWeekStart(date = new Date()): Date {
   return d;
 }
 
-// Ambil snapshot minggu lalu
 export function getLastWeekStart(): Date {
   const d = getWeekStart();
   d.setDate(d.getDate() - 7);
   return d;
 }
 
-// Simpan snapshot peringkat global semua member
+// Prisma tidak menerima null di unique constraint — pakai "" untuk global
+const GLOBAL_GAME_ID = "";
+
 export async function snapshotGlobalRanks() {
   const weekStart = getWeekStart();
   const members = await prisma.user.findMany({
@@ -32,23 +32,22 @@ export async function snapshotGlobalRanks() {
       where: {
         userId_gameId_weekStart: {
           userId: m.id,
-          gameId: null as any,
+          gameId: GLOBAL_GAME_ID,
           weekStart,
         },
       },
       update: { rank: i + 1, points: m.totalPoints },
       create: {
-        userId: m.id,
-        gameId: null,
-        rank: i + 1,
-        points: m.totalPoints,
+        userId:   m.id,
+        gameId:   GLOBAL_GAME_ID,
+        rank:     i + 1,
+        points:   m.totalPoints,
         weekStart,
       },
     });
   }
 }
 
-// Simpan snapshot peringkat per game
 export async function snapshotGameRanks(gameId: string) {
   const weekStart = getWeekStart();
   const gamePoints = await prisma.gamePoint.findMany({
@@ -62,41 +61,38 @@ export async function snapshotGameRanks(gameId: string) {
     await prisma.rankSnapshot.upsert({
       where: {
         userId_gameId_weekStart: {
-          userId: gp.userId,
+          userId:  gp.userId,
           gameId,
           weekStart,
         },
       },
       update: { rank: i + 1, points: gp.points },
       create: {
-        userId: gp.userId,
+        userId:   gp.userId,
         gameId,
-        rank: i + 1,
-        points: gp.points,
+        rank:     i + 1,
+        points:   gp.points,
         weekStart,
       },
     });
   }
 }
 
-// Ambil perubahan peringkat member (naik/turun)
 export async function getRankChange(
   userId: string,
   currentRank: number,
   gameId?: string | null
 ): Promise<number | null> {
   const lastWeek = getLastWeekStart();
-
   const snapshot = await prisma.rankSnapshot.findUnique({
     where: {
       userId_gameId_weekStart: {
         userId,
-        gameId: gameId ?? null as any,
+        gameId: gameId ?? GLOBAL_GAME_ID,
         weekStart: lastWeek,
       },
     },
   });
-
   if (!snapshot) return null;
-  return snapshot.rank - currentRank; // positif = naik, negatif = turun
+  return snapshot.rank - currentRank;
 }

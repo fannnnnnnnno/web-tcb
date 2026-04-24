@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  DarkMode: "class",
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
@@ -19,7 +20,7 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["Montserrat", "sans-serif"],
+        sans: ["var(--font-montserrat)", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
       backgroundImage: {

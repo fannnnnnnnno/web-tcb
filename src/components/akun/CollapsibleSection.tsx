@@ -30,29 +30,30 @@ export function CollapsibleSection({
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="bg-tcb-gray-800 border border-tcb-gray-700 rounded-2xl overflow-hidden">
-      {/* Header / Toggle */}
+    <div className="rounded-2xl overflow-hidden border"
+      style={{ backgroundColor: "var(--bg-card)", borderColor: "var(--border)" }}>
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-5 py-4 hover:bg-tcb-gray-700/40 transition-colors"
+        className="w-full flex items-center justify-between px-5 py-4 transition-colors"
+        style={{ color: "var(--text-primary)" }}
+        onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "var(--bg-card-hover)")}
+        onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
       >
         <div className="flex items-center gap-3">
           <span className="text-tcb-red">{icon === "avatar" ? <AvatarIcon /> : <EditIcon />}</span>
-          <span className="font-bold text-tcb-white text-sm">{title}</span>
+          <span className="font-bold text-sm" style={{ color: "var(--text-primary)" }}>{title}</span>
         </div>
         <svg
-          className={`w-4 h-4 text-tcb-gray-400 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+          className={`w-4 h-4 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          style={{ color: "var(--text-faint)" }}
         >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </button>
 
-      {/* Content */}
       {open && (
-        <div className="border-t border-tcb-gray-700 p-4 sm:p-5">
+        <div className="p-4 sm:p-5" style={{ borderTop: "1px solid var(--border)" }}>
           {children}
         </div>
       )}

@@ -1,3 +1,4 @@
+import { Montserrat } from "next/font/google";
 import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "@/components/layout/Providers";
@@ -5,6 +6,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { JsonLd } from "@/components/JsonLd";
 
+const montserrat = Montserrat({ subsets: ["latin"], variable: "--font-montserrat", display: "swap" });
 export const metadata: Metadata = {
   title: {
     template: "%s | TCB Bojonegoro",
@@ -66,8 +68,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="id">
-      <body>
+    <html lang="id" suppressHydrationWarning>
+      <body className={`${montserrat.variable} font-sans`}>
         <JsonLd />
         <Providers>
           <Navbar />
