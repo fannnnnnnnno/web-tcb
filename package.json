@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-     "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "next lint",
@@ -18,7 +18,7 @@
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.9.0",
     "clsx": "^2.1.1",
-    "next": "15.3.1",
+    "next": "15.3.8",
     "next-auth": "^5.0.0-beta.31",
     "next-themes": "^0.4.6",
     "react": "^18.3.1",
