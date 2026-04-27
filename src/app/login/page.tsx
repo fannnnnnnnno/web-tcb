@@ -32,7 +32,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-tcb-black">
+    <div className="min-h-screen flex items-center justify-center px-4 bg-white dark:bg-tcb-black">
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-tcb-red/10 blur-3xl rounded-full pointer-events-none" />
 
       <div className="relative w-full max-w-sm">
@@ -42,39 +42,34 @@ export default function LoginPage() {
             alt="TCB Logo"
             width={192}
             height={192}
-            className="h-36 md:h-48 w-auto mx-auto mb-2"
-            style={{
-                filter: !isDark
-                  ? "drop-shadow(0 1px 3px rgba(0,0,0,0.25)) drop-shadow(0 0 1px rgba(0,0,0,0.15))"
-                  : "none",
-              }}
+            className="h-36 md:h-48 w-auto mx-auto mb-2 drop-shadow-md dark:drop-shadow-none"
             priority
           />
-          <p className="text-tcb-gray-400 text-sm">Masuk ke akun anggota</p>
+          <p className="text-gray-500 dark:text-tcb-gray-400 text-sm">Masuk ke akun anggota</p>
         </div>
 
         <form onSubmit={handleSubmit}
-          className="bg-tcb-gray-800 border border-tcb-gray-700 rounded-2xl p-6 space-y-5">
+          className="bg-gray-100 dark:bg-tcb-gray-800 border border-gray-200 dark:border-tcb-gray-700 rounded-2xl p-6 space-y-5">
           {error && (
             <div className="bg-red-500/10 border border-red-500/30 text-red-400 text-sm rounded-lg px-4 py-3">
               {error}
             </div>
           )}
           <div>
-            <label className="block text-sm font-semibold text-tcb-gray-200 mb-2">Username</label>
+            <label className="block text-sm font-semibold text-gray-700 dark:text-tcb-gray-200 mb-2">Username</label>
             <input type="text" className="input" placeholder="masukkan username"
               value={form.username} onChange={(e) => setForm({ ...form, username: e.target.value })}
               required autoComplete="username" />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-tcb-gray-200 mb-2">Password</label>
+            <label className="block text-sm font-semibold text-gray-700 dark:text-tcb-gray-200 mb-2">Password</label>
             <div className="relative">
               <input type={showPass ? "text" : "password"} className="input pr-10"
                 placeholder="••••••••" value={form.password}
                 onChange={(e) => setForm({ ...form, password: e.target.value })}
                 required autoComplete="current-password" />
               <button type="button" onClick={() => setShowPass(!showPass)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-tcb-gray-400 hover:text-white">
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-tcb-gray-400 hover:text-gray-700 dark:hover:text-white">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   {showPass
                     ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
@@ -87,7 +82,7 @@ export default function LoginPage() {
           <button type="submit" className="btn-red w-full py-3 text-base" disabled={loading}>
             {loading ? "Memverifikasi..." : "Masuk"}
           </button>
-          <p className="text-center text-xs text-tcb-gray-400">
+          <p className="text-center text-xs text-gray-400 dark:text-tcb-gray-400">
             Belum punya akun? Hubungi admin TCB.
           </p>
         </form>
