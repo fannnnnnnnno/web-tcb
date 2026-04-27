@@ -46,14 +46,14 @@ const timelineEvents: TimelineEvent[] = [
     title: "LOGO KETIGA",
     description: "Pergantian logo ketiga dan juga rebranding, menuju TCB First Anniversary.",
     type: "major",
-    image: "/logoketiga.jpg",
+    image: "/logoketiga.png",
   },
    {
     date: "Februari 2025",
     title: "LOGO KEDUA",
     description: "Pergantian logo kedua.",
     type: "major",
-    image: "/logokedua.jpg",
+    image: "/logokedua.png",
   },
   {
     date: "Februari 2025",

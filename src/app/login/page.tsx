@@ -43,6 +43,11 @@ export default function LoginPage() {
             width={192}
             height={192}
             className="h-36 md:h-48 w-auto mx-auto mb-2"
+            style={{
+                filter: !isDark
+                  ? "drop-shadow(0 1px 3px rgba(0,0,0,0.25)) drop-shadow(0 0 1px rgba(0,0,0,0.15))"
+                  : "none",
+              }}
             priority
           />
           <p className="text-tcb-gray-400 text-sm">Masuk ke akun anggota</p>

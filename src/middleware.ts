@@ -3,7 +3,11 @@ import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 export async function middleware(req: NextRequest) {
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const token = await getToken({ 
+    req, 
+    secret: process.env.NEXTAUTH_SECRET,
+    secureCookies: process.env.NODE_ENV === "production",
+  });
   const role  = token?.role as string | undefined;
   const path  = req.nextUrl.pathname;
 
@@ -12,7 +16,7 @@ export async function middleware(req: NextRequest) {
     if (!token) {
       return NextResponse.redirect(new URL("/login", req.url));
     }
-    if (!["ADMIN", "SUPERADMIN"].includes(role ?? "")) {
+    if (!["ADMIN", "SUPERADMIN"].includes((role ?? "").toUpperCase())) {
       return NextResponse.redirect(new URL("/login", req.url));
     }
   }
