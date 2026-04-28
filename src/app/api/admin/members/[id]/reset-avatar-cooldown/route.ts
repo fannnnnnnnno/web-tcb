@@ -2,23 +2,19 @@ import { auth } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-function adminGuard(session: any) {
-  if (!session || !["ADMIN", "SUPERADMIN"].includes(session.user.role)) return false;
-  return true;
-}
-
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await auth();
-  if (!adminGuard(session))
+
+  if (!session || !["ADMIN", "SUPERADMIN"].includes(session.user.role))
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
 
   if (session.user.role !== "SUPERADMIN")
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
-  const { id } = await params; // ← await di sini
+  const { id } = await params;
 
   const user = await prisma.user.findUnique({ where: { id } });
   if (!user)
