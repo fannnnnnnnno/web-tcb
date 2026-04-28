@@ -50,17 +50,10 @@ const timelineEvents: TimelineEvent[] = [
   },
    {
     date: "Februari 2025",
-    title: "LOGO KEDUA",
+    title: "Perubahan LOGO KEDUA",
     description: "Pergantian logo kedua.",
     type: "major",
     image: "/logokedua.png",
-  },
-  {
-    date: "Februari 2025",
-    title: "LOGO PERTAMA",
-    description: "Logo pertama TCB resmi diperkenalkan.",
-    type: "major",
-    image: "/logopertama.jpg",
   },
   {
     date: "16 Januari 2025",
@@ -68,14 +61,22 @@ const timelineEvents: TimelineEvent[] = [
     description:
       "Setelah mengadakan turnamen tekken, dibentuklah komunitas 'TEKKEN COMMUNITY BOJONEGORO (TCB)'.",
     type: "major",
-    image: null,
+    image: "/logopertama.jpg",
   },
   {
     date: "12 Januari 2025",
     title: "TURNAMEN TEKKEN 8 PERTAMA",
     description:
       "Berkolaborasi dengan 3s Corner, mengadakan turnamen Tekken 8 kecil-kecilan.",
-    type: "minor",
+    type: "major",
+    image: null,
+  },
+  {
+    date: "05 November 2024",
+    title: "Cocobo Gaming",
+    description:
+      " ",
+    type: "major",
     image: null,
   },
   // ── TERLAMA (paling bawah) ────────────────────────────────
