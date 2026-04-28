@@ -1,24 +1,21 @@
 import { auth } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-
-function adminGuard(session: any) {
-  if (!session || !["ADMIN", "SUPERADMIN"].includes(session.user.role)) return false;
-  return true;
-}
+import bcrypt from "bcryptjs";
 
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   const session = await auth();
-  if (!adminGuard(session))
-    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
-
-  if (session.user.role !== "SUPERADMIN")
+  if (!session || session.user.role !== "SUPERADMIN")
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 
-  const { id } = await params; // ← await di sini
+  const { id } = await params;
+  const { newPassword } = await req.json();
+
+  if (!newPassword || newPassword.length < 6)
+    return NextResponse.json({ error: "Password minimal 6 karakter" }, { status: 400 });
 
   const user = await prisma.user.findUnique({ where: { id } });
   if (!user)
@@ -26,8 +23,8 @@ export async function POST(
 
   await prisma.user.update({
     where: { id },
-    data: { avatarLastUploadAt: null },
+    data: { password: await bcrypt.hash(newPassword, 12) },
   });
 
-  return NextResponse.json({ message: "Cooldown avatar berhasil direset" });
+  return NextResponse.json({ message: "Password berhasil diubah" });
 }

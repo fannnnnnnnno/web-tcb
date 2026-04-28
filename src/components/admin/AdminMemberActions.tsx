@@ -13,19 +13,23 @@ type Props = {
 
 export function AdminMemberActions({ member, badges, isSuperAdmin = false }: Props) {
   const [open, setOpen] = useState(false);
-  const [tab, setTab] = useState<"points" | "badge" | "avatar" | "delete">("points");
+  const [tab, setTab] = useState<"points" | "badge" | "avatar" | "password" | "delete">("points");
   const [pointAmount, setPointAmount] = useState("");
   const [pointReason, setPointReason] = useState("");
   const [selectedBadge, setSelectedBadge] = useState("");
   const [badgeNote, setBadgeNote] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
   const router = useRouter();
 
   const tabs = [
-    { key: "points", label: "Poin" },
-    { key: "badge",  label: "Lencana" },
-    ...(isSuperAdmin ? [{ key: "avatar", label: "Avatar" }] : []),
+    { key: "points",   label: "Poin" },
+    { key: "badge",    label: "Lencana" },
+    ...(isSuperAdmin ? [
+      { key: "avatar",   label: "Avatar" },
+      { key: "password", label: "Password" },
+    ] : []),
     { key: "delete", label: "Hapus" },
   ] as const;
 
@@ -65,6 +69,21 @@ export function AdminMemberActions({ member, badges, isSuperAdmin = false }: Pro
     setLoading(false);
     if (res.ok) { setMsg("Cooldown avatar direset!"); router.refresh(); }
     else { setMsg("Gagal mereset cooldown."); }
+  }
+
+  async function resetPassword() {
+    if (!newPassword || newPassword.length < 6)
+      return setMsg("Password minimal 6 karakter.");
+    if (!confirm(`Set password baru untuk "${member.name}"?`)) return;
+    setLoading(true);
+    const res = await fetch(`/api/admin/members/${member.id}/reset-password`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ newPassword }),
+    });
+    setLoading(false);
+    if (res.ok) { setMsg("Password berhasil diubah!"); setNewPassword(""); }
+    else { const d = await res.json(); setMsg(d.error ?? "Gagal mengubah password."); }
   }
 
   async function deleteMember() {
@@ -184,6 +203,35 @@ export function AdminMemberActions({ member, badges, isSuperAdmin = false }: Pro
                 {!member.avatarLastUploadAt && (
                   <p className="text-xs text-tcb-gray-500 text-center">Tidak ada cooldown aktif</p>
                 )}
+              </div>
+            )}
+
+            {/* Tab: Password (SUPERADMIN only) */}
+            {tab === "password" && isSuperAdmin && (
+              <div className="space-y-3">
+                <div className="bg-tcb-gray-900 border border-tcb-gray-700 rounded-xl p-4 text-sm text-tcb-gray-200">
+                  <p className="font-semibold text-tcb-white mb-1">Set Password Baru</p>
+                  <p className="text-xs text-tcb-gray-400">
+                    Password baru untuk <span className="text-white font-semibold">@{member.username}</span>. Member tidak akan diberitahu secara otomatis.
+                  </p>
+                </div>
+                <div>
+                  <label className="text-xs text-tcb-gray-400 block mb-1">Password Baru</label>
+                  <input
+                    type="password"
+                    className="input text-sm"
+                    placeholder="Minimal 6 karakter"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                  />
+                </div>
+                <button
+                  onClick={resetPassword}
+                  disabled={loading}
+                  className="btn-red w-full text-sm py-2.5 flex items-center justify-center gap-2 disabled:opacity-50"
+                >
+                  {loading ? <><Spinner size={14} /> Menyimpan...</> : "Set Password Baru"}
+                </button>
               </div>
             )}
 
