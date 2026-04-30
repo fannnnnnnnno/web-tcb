@@ -34,19 +34,66 @@ const timelineEvents: TimelineEvent[] = [
   // ── TERBARU (paling atas) ─────────────────────────────────
   {
     date: "2025",
-    title: "TCB MASA KINI",
+    title: "TCB RN",
     description:
-      "TCB terus berkembang dengan member aktif yang terus bertambah. Rutin mengadakan gathering mingguan, tournament lokal hingga antar kota, serta sparring antar komunitas game fighting se-Jawa Timur.",
+      "TCB terus berkembang dengan member aktif yang terus bertambah. Rutin mengadakan gathering mingguan, tournament lokal hingga antar kota, serta sparring antar komunitas game fighting.",
     type: "major",
     image: null,
-    isLatest: true,
+  },
+  {
+    date: "18 Januari 2026",
+    title: "Frendly Match TCB vs TDC (Tekken Dumai community)",
+    description:
+      "Friedly match pertama TCB dengan TDC (Tekken Dumai community), komunitas dari Sumatra",
+    type: "minor",
+    image: null,
+  },
+    {
+    date: "18 Januari 2026",
+    title: "Frendly Match TCB vs TWK (Tekken warior kobar)",
+    description:
+      "Friedly match pertama TCB dengan TWK (Tekken Warrior Kobar), komunitas dari kalimantan",
+    type: "minor",
+    image: null,
+  },
+    {
+    date: "18 Januari 2026",
+    title: "BREAK THE LIMIT INDO",
+    description:
+      "TCB mendapat kesempatan bergabung dalam Break The Limit Indo, sebuah liga tekken 8 antar komunitas di Indonesia, yang disiarkan secara live di channel YouTube",
+    type: "major",
+    image: null,
+  },
+  {
+    date: "18 Januari 2026",
+    title: "TEKKEN BOJONEGORO TOUR",
+    description:
+      "Turnamen tekken 8 dalam rangka Anniversary TCB, dengan peserta dari dalam ataupun luar kota.",
+    type: "major",
+    image: null,
   },
    {
-    date: "Desember 2025",
+    date: "11 Desember 2025",
     title: "LOGO KETIGA",
     description: "Pergantian logo ketiga dan juga rebranding, menuju TCB First Anniversary.",
     type: "major",
     image: "/logoketiga.png",
+  },
+    {
+    date: "17 Mei 2025",
+    title: "OPEN GATHERING PERTAMA & TCB AMATEUR LEAGUE",
+    description:
+      "Turnamen tekken amatir pertama dengan nama 'TCB Amateur League', sekaligus open gathering untuk umum.",
+    type: "minor",
+    image: null,
+  },
+  {
+    date: "01 Mei 2025",
+    title: "FRIENDLY MATCH PERTAMA TCB",
+    description:
+      "friendly match pertama TCB Bojonegoro melawan SGX (Semarang Gelud Xtreme Esports)",
+    type: "minor",
+    image: null,
   },
    {
     date: "Februari 2025",
@@ -56,26 +103,35 @@ const timelineEvents: TimelineEvent[] = [
     image: "/logokedua.png",
   },
   {
-    date: "Februari 2025",
-    title: "LOGO PERTAMA",
-    description: "Logo pertama TCB resmi diperkenalkan.",
-    type: "major",
-    image: "/logopertama.jpg",
-  },
-  {
     date: "16 Januari 2025",
     title: "BERDIRINYA TCB",
     description:
       "Setelah mengadakan turnamen tekken, dibentuklah komunitas 'TEKKEN COMMUNITY BOJONEGORO (TCB)'.",
     type: "major",
-    image: null,
+    image: "/logopertama.jpg",
   },
   {
     date: "12 Januari 2025",
     title: "TURNAMEN TEKKEN 8 PERTAMA",
     description:
-      "Berkolaborasi dengan 3s Corner, mengadakan turnamen Tekken 8 kecil-kecilan.",
+      "karena banyaknya peminat tekken 8, diadakanlah turnamen tekken 8 pertama di 3s Corner, dengan peserta dari dalam kota bojonegoro.",
     type: "minor",
+    image: null,
+  },
+  {
+    date: "20 Desember 2024",
+    title: "GATHERING KEDUA COCOBO GAMING",
+    description:
+      "setelah sebelumnya sukses, kali ini gathering pure tekken 8 dikarenakan peminatnya yang paling banyak dibanding game lain.",
+    type: "minor",
+    image: null,
+  },
+  {
+    date: "05 November 2024",
+    title: "GATHERING PERTAMA COCOBO GAMING",
+    description:
+      "Gathering di 3s Corner, Berawal dari game Tekken 8, Naruto Ultimate Ninja Storm 4, dan Jumpforce.",
+    type: "major",
     image: null,
   },
   // ── TERLAMA (paling bawah) ────────────────────────────────

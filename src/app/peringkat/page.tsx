@@ -115,7 +115,7 @@ export default async function PeringkatPage({
 
   const PODIUM_DISPLAY = [
     { idx: 1, pos: 2, borderColor: "#9ca3af", textColor: "#6b7280", bgColor: "rgba(156,163,175,0.15)", h: "h-16 sm:h-24" },
-    { idx: 0, pos: 1, borderColor: "#E01E2B", textColor: "#E01E2B", bgColor: "rgba(224,30,43,0.12)",   h: "h-24 sm:h-32" },
+    { idx: 0, pos: 1, borderColor: "#FFD400", textColor: "#FFD400", bgColor: "rgba(224,30,43,0.12)",   h: "h-24 sm:h-32" },
     { idx: 2, pos: 3, borderColor: "#cd7f32", textColor: "#b87333", bgColor: "rgba(205,127,50,0.12)",  h: "h-12 sm:h-20" },
   ];
 
