@@ -109,7 +109,6 @@ const timelineEvents: TimelineEvent[] = [
       "Setelah mengadakan turnamen tekken, dibentuklah komunitas 'TEKKEN COMMUNITY BOJONEGORO (TCB)'.",
     type: "major",
     image: "/logopertama.jpg",
-    image: "/logopertama.jpg",
   },
   {
     date: "12 Januari 2025",
