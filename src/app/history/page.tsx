@@ -97,7 +97,7 @@ const timelineEvents: TimelineEvent[] = [
   },
    {
     date: "Februari 2025",
-    title: "LOGO KEDUA",
+    title: "Perubahan LOGO KEDUA",
     description: "Pergantian logo kedua.",
     type: "major",
     image: "/logokedua.png",
@@ -108,6 +108,7 @@ const timelineEvents: TimelineEvent[] = [
     description:
       "Setelah mengadakan turnamen tekken, dibentuklah komunitas 'TEKKEN COMMUNITY BOJONEGORO (TCB)'.",
     type: "major",
+    image: "/logopertama.jpg",
     image: "/logopertama.jpg",
   },
   {
