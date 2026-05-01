@@ -32,73 +32,100 @@ type TimelineEvent = {
 
 const timelineEvents: TimelineEvent[] = [
   // ── TERBARU (paling atas) ─────────────────────────────────
+
   {
-    date: "2025",
-    title: "TCB RN",
+    date: "18 April 2026",
+    title: "FUN MATCH TOURNAMENT — MAJU HARDWARE MADIUN",
     description:
-      "TCB terus berkembang dengan member aktif yang terus bertambah. Rutin mengadakan gathering mingguan, tournament lokal hingga antar kota, serta sparring antar komunitas game fighting.",
-    type: "major",
-    image: null,
-  },
-  {
-    date: "18 Januari 2026",
-    title: "Frendly Match TCB vs TDC (Tekken Dumai community)",
-    description:
-      "Friedly match pertama TCB dengan TDC (Tekken Dumai community), komunitas dari Sumatra",
+      "TCB menurunkan 13 roster terbaiknya dalam Fun Match Tournament yang diselenggarakan di Maju Hardware, Madiun. Keikutsertaan ini menjadi bukti nyata komitmen TCB dalam memperluas jaringan kompetisi ke luar kota Bojonegoro.",
     type: "minor",
     image: null,
   },
-    {
-    date: "18 Januari 2026",
-    title: "Frendly Match TCB vs TWK (Tekken warior kobar)",
+  {
+    date: "7 Maret 2026",
+    title: "FRIENDLY MATCH TCB vs TDC (TEKKEN DUMAI COMMUNITY)",
     description:
-      "Friedly match pertama TCB dengan TWK (Tekken Warrior Kobar), komunitas dari kalimantan",
+      "TCB Bojonegoro menghadapi Tekken Dumai Community (TDC) dari Riau dalam sebuah friendly match lintas pulau. Pertandingan disiarkan secara langsung melalui kanal YouTube @TCBBojonegoro, dengan TCB menurunkan 10 roster pilihan.",
     type: "minor",
-    image: null,
-  },
-    {
-    date: "18 Januari 2026",
-    title: "BREAK THE LIMIT INDO",
-    description:
-      "TCB mendapat kesempatan bergabung dalam Break The Limit Indo, sebuah liga tekken 8 antar komunitas di Indonesia, yang disiarkan secara live di channel YouTube",
-    type: "major",
     image: null,
   },
   {
     date: "18 Januari 2026",
     title: "TEKKEN BOJONEGORO TOUR",
     description:
-      "Turnamen tekken 8 dalam rangka Anniversary TCB, dengan peserta dari dalam ataupun luar kota.",
+      "Dalam rangka memperingati Anniversary pertama TCB, diselenggarakan turnamen Tekken 8 bertajuk Tekken Bojonegoro Tour. Kompetisi ini terbuka untuk peserta dari dalam maupun luar kota, dengan total prizepool Rp 700.000 beserta sertifikat. Diselenggarakan di QQ Gaming Bojonegoro.",
     type: "major",
     image: null,
   },
-   {
-    date: "11 Desember 2025",
-    title: "LOGO KETIGA",
-    description: "Pergantian logo ketiga dan juga rebranding, menuju TCB First Anniversary.",
-    type: "major",
-    image: "/logoketiga.png",
-  },
-    {
-    date: "17 Mei 2025",
-    title: "OPEN GATHERING PERTAMA & TCB AMATEUR LEAGUE",
+  {
+    date: "18 Januari 2026",
+    title: "BREAK THE LIMIT INDO",
     description:
-      "Turnamen tekken amatir pertama dengan nama 'TCB Amateur League', sekaligus open gathering untuk umum.",
+      "TCB mendapat kehormatan untuk bergabung dalam Break The Limit Indo, sebuah liga resmi Tekken 8 yang mempertemukan berbagai komunitas dari seluruh Indonesia. Seluruh pertandingan disiarkan secara langsung melalui platform YouTube.",
+    type: "major",
+    image: null,
+  },
+  {
+    date: "18 Januari 2026",
+    title: "FRIENDLY MATCH TCB vs TWK (TEKKEN WARRIOR KOBAR)",
+    description:
+      "TCB menjalin hubungan persahabatan antar komunitas dengan menggelar friendly match melawan Tekken Warrior Kobar (TWK), komunitas Tekken yang berbasis di Kalimantan.",
     type: "minor",
     image: null,
   },
   {
-    date: "01 Mei 2025",
-    title: "FRIENDLY MATCH PERTAMA TCB",
+    date: "11 Desember 2025",
+    title: "LOGO KETIGA & REBRANDING",
     description:
-      "friendly match pertama TCB Bojonegoro melawan SGX (Semarang Gelud Xtreme Esports)",
+      "Memasuki penghujung tahun pertamanya, TCB melakukan pembaruan identitas visual dengan merilis logo ketiga sekaligus rebranding komunitas secara menyeluruh, sebagai langkah persiapan menuju perayaan TCB First Anniversary.",
+    type: "major",
+    image: "/logoketiga.png",
+  },
+  {
+    date: "9 November 2025",
+    title: "TEKKEN ZOEL PLAYSTATION TOURNAMENT",
+    description:
+      "TCB bersama Zoel Playstation menyelenggarakan turnamen Tekken 8 di Sukorejo, Bojonegoro. Kompetisi ini menawarkan prizepool senilai Rp 300.000 beserta sertifikat, dengan biaya pendaftaran Rp 15.000 yang sudah mencakup satu minuman gratis untuk setiap peserta.",
     type: "minor",
     image: null,
   },
-   {
+  {
+    date: "November 2025",
+    title: "PIALA IESPA KABUPATEN BOJONEGORO",
+    description:
+      "TCB berpartisipasi dalam Piala IESPA Kabupaten Bojonegoro, turnamen Tekken 8 resmi yang diselenggarakan di bawah naungan IESPA. Dengan total hadiah mencapai jutaan rupiah ditambah 25.500 diamonds, piala, serta uang pembinaan.",
+    type: "minor",
+    image: null,
+  },
+  {
+    date: "14 September 2025",
+    title: "TCB × COCOBO — OPEN BOOTH",
+    description:
+      "TCB berkolaborasi dengan Cocobo dalam rangka perayaan ulang tahun Cocobo ke-11 yang digelar di Gedung SSC Bojonegoro. Dalam kesempatan ini, TCB membuka booth khusus sebagai sarana memperkenalkan komunitas fighting game kepada khalayak yang lebih luas.",
+    type: "major",
+    image: null,
+  },
+  {
+    date: "17 Mei 2025",
+    title: "OPEN GATHERING PERTAMA & TCB AMATEUR LEAGUE",
+    description:
+      "TCB menggelar open gathering perdana yang terbuka untuk umum, sekaligus menandai lahirnya TCB Amateur League — kompetisi Tekken internal pertama yang dirancang khusus untuk pemain amatir di lingkungan komunitas. Acara berlangsung di OPK 2 Bojonegoro.",
+    type: "minor",
+    image: null,
+  },
+  {
+    date: "1 Mei 2025",
+    title: "FRIENDLY MATCH PERTAMA TCB",
+    description:
+      "TCB Bojonegoro mengukir sejarah dengan menggelar friendly match perdana melawan SGX (Semarang Gelud Xtreme Esports). Pertandingan ini menjadi babak awal TCB dalam menjalin relasi kompetitif dengan komunitas fighting game dari kota lain, dan disiarkan langsung melalui kanal YouTube SGX e-Sports.",
+    type: "minor",
+    image: null,
+  },
+  {
     date: "Februari 2025",
-    title: "Perubahan LOGO KEDUA",
-    description: "Pergantian logo kedua.",
+    title: "LOGO KEDUA",
+    description:
+      "Seiring pertumbuhan komunitas, TCB melakukan pembaruan identitas visual pertamanya dengan memperkenalkan logo kedua yang mencerminkan semangat dan perkembangan komunitas.",
     type: "major",
     image: "/logokedua.png",
   },
@@ -106,7 +133,7 @@ const timelineEvents: TimelineEvent[] = [
     date: "16 Januari 2025",
     title: "BERDIRINYA TCB",
     description:
-      "Setelah mengadakan turnamen tekken, dibentuklah komunitas 'TEKKEN COMMUNITY BOJONEGORO (TCB)'.",
+      "Atas antusiasme yang luar biasa dari para peserta turnamen Tekken 8, secara resmi dibentuklah Tekken Community Bojonegoro (TCB) sebagai wadah bagi para penggiat fighting game di Bojonegoro. Komunitas ini berdiri dengan tagline 'Combo, Respect, Repeat' sebagai landasan nilai bersama.",
     type: "major",
     image: "/logopertama.jpg",
   },
@@ -114,7 +141,7 @@ const timelineEvents: TimelineEvent[] = [
     date: "12 Januari 2025",
     title: "TURNAMEN TEKKEN 8 PERTAMA",
     description:
-      "karena banyaknya peminat tekken 8, diadakanlah turnamen tekken 8 pertama di 3s Corner, dengan peserta dari dalam kota bojonegoro.",
+      "Menyikapi tingginya minat masyarakat Bojonegoro terhadap Tekken 8, digelarlah turnamen pertama yang bertempat di 3s Corner. Kompetisi ini sepenuhnya diikuti oleh peserta dari dalam kota dan menjadi tonggak awal perjalanan komunitas TCB.",
     type: "minor",
     image: null,
   },
@@ -122,15 +149,15 @@ const timelineEvents: TimelineEvent[] = [
     date: "20 Desember 2024",
     title: "GATHERING KEDUA COCOBO GAMING",
     description:
-      "setelah sebelumnya sukses, kali ini gathering pure tekken 8 dikarenakan peminatnya yang paling banyak dibanding game lain.",
+      "Menyusul keberhasilan gathering pertama, sesi kedua kali ini difokuskan sepenuhnya pada Tekken 8 mengingat animo peserta terhadap game tersebut jauh melampaui game lainnya.",
     type: "minor",
     image: null,
   },
   {
-    date: "05 November 2024",
+    date: "5 November 2024",
     title: "GATHERING PERTAMA COCOBO GAMING",
     description:
-      "Gathering di 3s Corner, Berawal dari game Tekken 8, Naruto Ultimate Ninja Storm 4, dan Jumpforce.",
+      "Sebuah gathering gaming perdana digelar di 3s Corner, Bojonegoro, menampilkan tiga judul game: Tekken 8, Naruto Ultimate Ninja Storm 4, dan Jump Force. Momen inilah yang menjadi cikal bakal lahirnya Tekken Community Bojonegoro (TCB).",
     type: "major",
     image: null,
   },

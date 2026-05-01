@@ -6,7 +6,7 @@ import Link from "next/link";
 async function getData() {
   const agendas = await prisma.agenda.findMany({
     where: { isPublished: true },
-    orderBy: { date: "asc" },
+    orderBy: { date: "desc" },
     take: 6,
   });
   return { agendas };

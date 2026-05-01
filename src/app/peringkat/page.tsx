@@ -4,6 +4,7 @@ import { formatPoints, getAvatarUrl } from "@/lib/utils";
 import { auth } from "@/auth";
 import { getLastWeekStart } from "@/lib/rankUtils";
 import Link from "next/link";
+import { GameTabSelect } from "@/components/layout/GameTabSelect";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Peringkat" };
@@ -67,7 +68,7 @@ export default async function PeringkatPage({
     const [data, count] = await Promise.all([
       prisma.user.findMany({
         where: { role: "MEMBER" },
-        orderBy: { totalPoints: "desc" },
+        orderBy: [{ totalPoints: "desc" }, { name: "asc" }],
         skip: (page - 1) * limit,
         take: limit,
         select: { id: true, username: true, name: true, avatarId: true, totalPoints: true },
@@ -80,7 +81,7 @@ export default async function PeringkatPage({
     const [data, count] = await Promise.all([
       prisma.gamePoint.findMany({
         where: { gameId: activeGame.id },
-        orderBy: { points: "desc" },
+        orderBy: [{ points: "desc" }, { user: { name: "asc" } }],
         skip: (page - 1) * limit,
         take: limit,
         include: { user: { select: { id: true, username: true, name: true, avatarId: true } } },
@@ -136,28 +137,35 @@ export default async function PeringkatPage({
         </div>
 
         {/* Tabs */}
-<div className="flex gap-1.5 flex-wrap justify-center mb-8 sm:mb-10">
-  <Link href="/peringkat"
-    className="px-4 py-1.5 rounded-full text-sm font-semibold transition-all border whitespace-nowrap"
-    style={isGlobal
-      ? { backgroundColor: "#E01E2B", borderColor: "#E01E2B", color: "#fff" }
-      : { backgroundColor: "var(--bg-card)", borderColor: "var(--border)", color: "var(--text-faint)" }
-    }
-  >
-    Global
-  </Link>
-  {games.map((g) => (
-    <Link key={g.id} href={`/peringkat?game=${g.slug}`}
-      className="px-4 py-1.5 rounded-full text-sm font-semibold transition-all border whitespace-nowrap"
-      style={gameSlug === g.slug
-        ? { backgroundColor: "#E01E2B", borderColor: "#E01E2B", color: "#fff" }
-        : { backgroundColor: "var(--bg-card)", borderColor: "var(--border)", color: "var(--text-faint)" }
-      }
-    >
-      {g.name}
-    </Link>
-  ))}
-</div>
+        <div className="mb-8 sm:mb-10">
+          {/* Mobile: Dropdown */}
+          <div className="sm:hidden px-4">
+            <GameTabSelect gameSlug={gameSlug} games={games} />
+          </div>
+          {/* Desktop: Tab pills */}
+          <div className="hidden sm:flex gap-1.5 flex-wrap justify-center">
+            <Link href="/peringkat"
+              className="px-4 py-1.5 rounded-full text-sm font-semibold transition-all border whitespace-nowrap"
+              style={isGlobal
+                ? { backgroundColor: "#E01E2B", borderColor: "#E01E2B", color: "#fff" }
+                : { backgroundColor: "var(--bg-card)", borderColor: "var(--border)", color: "var(--text-faint)" }
+              }
+            >
+              Global
+            </Link>
+            {games.map((g) => (
+              <Link key={g.id} href={`/peringkat?game=${g.slug}`}
+                className="px-4 py-1.5 rounded-full text-sm font-semibold transition-all border whitespace-nowrap"
+                style={gameSlug === g.slug
+                  ? { backgroundColor: "#E01E2B", borderColor: "#E01E2B", color: "#fff" }
+                  : { backgroundColor: "var(--bg-card)", borderColor: "var(--border)", color: "var(--text-faint)" }
+                }
+              >
+                {g.name}
+              </Link>
+            ))}
+          </div>
+        </div>
 
         {/* PODIUM */}
         {podium.length >= 3 && (
